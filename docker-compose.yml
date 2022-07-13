@@ -1,6 +1,15 @@
 version: '3.7'
 
 services:
+    db:
+        image: postgres
+        volumes:
+          - ./data/db:/var/lib/postgresql/data
+        environment:
+          - POSTGRES_DB=postgres
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        container_name: rocket-core-db
     rocket-core-node:
         build:
             context: .
@@ -15,3 +24,11 @@ services:
         ports:
           - '4000:4000'
         command: npm run dev
+        environment:
+          - POSTGRES_NAME=postgres
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        depends_on:
+          - db
+networks:
+    default:
