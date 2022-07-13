@@ -15,3 +15,6 @@ restart:
 
 restart-prod:
 	docker compose -f docker-compose.yml -f docker-compose.prod.yml restart
+
+init_db:
+	docker compose run rocket-core-node npm run setup
